@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var miku = {};
+	miku.background = "background/miku.jpg";
 	miku.trace = "img/初音/";
 	miku.name = "初音";
 	miku.type = "folder";
@@ -20,6 +21,7 @@ $(document).ready(function(){
 	{name:"2015-11-20-001315.jpg",type:"img"}];
 
 	var food = {};
+	food.background = "background/food.jpg";
 	food.trace = "img/食物/";
 	food.name = "食物";
 	food.type = "folder";
@@ -57,6 +59,7 @@ $(document).ready(function(){
 	];
 
 	var img = {};
+	img.background = "background/img.jpg";
 	img.trace = "img/";
 	img.name = "img";
 	img.type = "folder";
@@ -66,7 +69,21 @@ $(document).ready(function(){
 		{name:"120159898.png",type:"img"}, 
 		{name:"1441689373-1274610415_n.jpg",type:"img"}
 	];
-
+	function fiximgshowposition(){
+		var usablewidth = $(window).width();
+		var usableheight = $(window).height()-120;
+		var imgshowwidth = usablewidth * 0.8;
+		var imgshowheight = usableheight * 0.8;
+		$(".imgshow img").css("max-width",imgshowwidth+"px");
+		$(".imgshow img").css("max-height",imgshowheight+"px");
+		$(".imgshow").css("width",imgshowwidth+"px");
+		$(".imgshow").css("height",imgshowheight+"px");
+		$(".imgshow").css("margin-left",imgshowwidth/2*(-1)+"px");
+		$(".imgshow").css("top",usableheight/2+"px");
+		$(".imgshow").css("line-height",imgshowheight+"px");
+		$(".imgshow").css("margin-top",imgshowheight/2*(-1)+"px");
+	}
+	fiximgshowposition();
 	var nowroute = "img/";
 	function makethumbnail(nowposition){
 		$(".thumbernailwrappercontroller").html("");
@@ -79,6 +96,8 @@ $(document).ready(function(){
 		});
 		$(".thumbernailwrapper").click(function(){
 			$(".imgshow img").attr("src",$(this).data("src"));
+			$(".imgshow a").attr("href",$(this).data("src"));
+			$(".imgshow a").attr("download",$(this).data("src").split('/')[$(this).data("src").split('/').length-1]);
 			$(".thumbernailwrappercontroller").css("margin-left",$(this).data("marginleft"));
 		});
 	}
@@ -106,6 +125,7 @@ $(document).ready(function(){
 				}
 			});
 		}
+		$("#background").attr("src",nowposition.background);
 		$("#itemshower").html("");
 		imgamount = 0;
 		var marginleft = 240;
@@ -133,6 +153,8 @@ $(document).ready(function(){
 			});
 			$(".img.item").click(function(){
 				$(".imgshow img").attr("src",$(this).data("src"));
+				$(".imgshow a").attr("href",$(this).data("src"));
+				$(".imgshow a").attr("download",$(this).data("src").split('/')[$(this).data("src").split('/').length-1]);
 				$(".thumbernailwrappercontroller").css("margin-left",$(this).data("marginleft"));
 				openplaymode();
 			});
@@ -140,19 +162,72 @@ $(document).ready(function(){
 			makethumbnail(nowposition);
 		});
 	}
-	createitem(nowroute);
-	$(".fade").css("height",$(window).height()+200);
+	function playforward(){
+		if(((parseInt($(".thumbernailwrappercontroller").css("margin-left").slice(0,-2))-240)*(-1)/120) < $(".thumbnail").length-1){
+			$(".thumbernailwrapper")[((parseInt($(".thumbernailwrappercontroller").css("margin-left").slice(0,-2))-240)*(-1)/120)+1].click();
+		}else{
+			$(".thumbernailwrapper")[0].click();
+		}
+	}
+	function autoplay(){
+		setTimeout(function(){
+			playforward();
+			autoplay();
+		},2000);
+	}
+	function setautoplayclickevent(){
+		$("#autoplay").click(function(){
+			autoplay();
+			$("#autoplay").addClass('autoplaying');
+			$("#autoplay").unbind();
+			$("#autoplay").click(function(){
+				$("#autoplay").removeClass('autoplaying');
+				var id = window.setTimeout(function() {}, 0);
+				while (id--) {
+				    window.clearTimeout(id);
+				}
+				setautoplayclickevent();
+			});
+		});
+	}
 	function openplaymode(){
+		var id = window.setTimeout(function() {}, 0);
+		while (id--) {
+		 	window.clearTimeout(id);
+		}
 		$(".fade").addClass('active');
 		$(".thumbnailviewer").addClass('active');
 		$(".imgshow").addClass('active');
+		$("#autoplay").addClass('active');
 		$(".fade.active").click(function(){
 			closeplaymode();
 		});
+		setautoplayclickevent();
 	}
+	createitem(nowroute);
+	$(".fade").css("height",$(window).height()+200);
 	function closeplaymode(){
 		$(".fade").removeClass('active');
 		$(".thumbnailviewer").removeClass('active');
 		$(".imgshow").removeClass('active');
+		$("#autoplay").removeClass('active');
+		$("#autoplay").removeClass('autoplaying');
+		var id = window.setTimeout(function() {}, 0);
+		while (id--) {
+		 	window.clearTimeout(id);
+		}
+		$("#autoplay").unbind();
 	}
+	var nowsong = 0;
+	var songsrc = [
+		"res/senbonsakura.mp3",
+		"res/UnhappyRefrain.mp3",
+		"res/sekaisehu.mp3"
+	];
+	$('#myaudio').on('ended', function() {
+   		nowsong = (nowsong+1)%3;
+   		console.log(123);
+   		$('#myaudio')[0].setAttribute('src', songsrc[nowsong]); 
+   		$('#myaudio')[0].play();
+	});
 });
