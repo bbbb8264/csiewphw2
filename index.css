@@ -1,0 +1,211 @@
+body{
+	margin:0;
+}
+#header{
+	width:100%;
+	height:80px;
+	background-color: #404040; 
+}
+#statusbar{
+	display:table;
+	line-height:80px;
+	margin:auto;
+	color:white;
+	font-family: Microsoft JhengHei;
+}
+#statusbar .buttonitem{
+	font-size: 25px;
+    float: left;
+    height: 40px;
+    margin-top: 20px;
+    line-height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color:#404040;
+	border-style: solid;
+    transition:background-color 0.5s;
+    transition:border-color 0.5s;
+}
+#statusbar .buttonitem:hover{
+	cursor:pointer;
+	background-color: #303030;
+}
+#statusbar .divideitem{
+	font-size: 25px;
+    float: left;
+    height: 25px;
+    line-height: 40px;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+#itemshower{
+    display:table;
+    margin:auto;
+    margin-top: 10px;
+}
+#itemshower .item{
+    width:150px;
+    float:left;
+    height:150px;
+    background-color: #E9E9E9;
+    position:relative;
+    border-radius: 10px;
+    margin:5px;
+}
+#itemshower .item:hover{
+    cursor: pointer;
+    background-color: #C9C9C9;
+}
+#itemshower .item .iconwrapper{
+    line-height: 122px;
+    text-align: center;
+}
+#itemshower .item .iconwrapper .icon{
+    max-width:120px;
+    max-height:80px;
+    margin: auto;
+    vertical-align: middle;
+}
+#itemshower .item .itemnamewrapper{
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width:100%;
+}
+#itemshower .item .itemnamewrapper .itemname{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: initial;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.fade{
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    transition: background-color 0.5s;
+}
+.fade.active{
+    visibility: visible;
+    background-color: rgba(0,0,0,0.7);
+}
+.imgshow{
+    position: fixed;
+    width: 1000px;
+    height: 500px;
+    left: 50%;
+    top: 10px;
+    margin-left: -500px;
+    visibility: hidden;
+    opacity: 0;
+    text-align: center;
+    line-height: 500px;
+    transition: opacity 0.3s;
+}
+.imgshow.active{
+    visibility: visible;
+    opacity: 1;
+}
+.imgshow img{
+    max-width: 1000px;
+    max-height:400px;
+    vertical-align: middle;
+    border-radius: 10px;
+    border-color: #393939;
+    border-style: solid;
+    border-width: 5px;
+}
+.thumbnailviewer{
+    position: fixed;
+    bottom: 0;
+    height: 120px;
+    background-color: #494949;
+    left: 50%;
+    margin-left:-300px;
+    width:600px;
+    border-radius: 10px;
+    border-color: #393939;
+    border-style: solid;
+    margin-bottom: -120px;
+    visibility: hidden;
+    transition: margin-bottom 0.3s;
+    overflow:hidden;
+}
+.thumbnailviewer.active{
+    visibility: visible;
+    margin-bottom: 0px;
+}
+.thumbernailwrappercontroller{
+    transition: margin-left 0.3s;
+}
+.thumbnailviewer .thumbernailwrapper{
+    width:100px;
+    height:100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 10px;
+    float:left;
+    background-color: #7C7C7C;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+.thumbnailviewer .thumbernailwrapper:hover{
+    cursor:pointer;
+    background-color: #5C5C5C;
+}
+.thumbnail{
+    vertical-align: middle;
+    max-width:80px;
+    max-height:80px;
+}
+@media screen and (min-width: 160px) and (max-width:320px){
+    #itemshower {
+        max-width:160px;
+    }
+}
+@media screen and (min-width: 321px) and (max-width:480px){
+    #itemshower {
+        max-width:320px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width:640px){
+    #itemshower {
+        max-width:480px;
+    }
+}
+@media screen and (min-width: 641px) and (max-width:800px){
+    #itemshower {
+        max-width:640px;
+    }
+}
+@media screen and (min-width: 801px) and (max-width:960px){
+    #itemshower {
+        max-width:800px;
+    }
+}
+@media screen and (min-width: 961px) and (max-width:1120px){
+    #itemshower {
+        max-width:960px;
+    }
+}
+@media screen and (min-width: 1121px) and (max-width:1280px){
+    #itemshower {
+        max-width:1120px;
+    }
+}
+@media screen and (min-width: 1280px) and (max-width:1440px){
+    #itemshower {
+        max-width:1280px;
+    }
+}
+@media screen and (min-width: 1441px){
+    #itemshower {
+        max-width:1440px;
+    }
+}
