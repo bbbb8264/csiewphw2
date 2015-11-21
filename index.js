@@ -67,7 +67,7 @@ $(document).ready(function(){
 		{name:"1441689373-1274610415_n.jpg",type:"img"}
 	];
 
-	var nowroute = "img/初音/";
+	var nowroute = "img/";
 	function makethumbnail(nowposition){
 		$(".thumbernailwrappercontroller").html("");
 		var marginleft = 240;
